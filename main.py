@@ -4,6 +4,7 @@ import math
 def format_value(value):
     formated_value = "{:.2f}".format(value)
     return formated_value
+
 def entered_function(x):
     return (2 * x * math.exp(x**2))-5
 
@@ -46,8 +47,6 @@ def check_diff(x):
     return funс_diff_1(x) * funс_diff_2(x) > 0
 
 def chorde_method(x1, x2, accuracy):
-    print(" ")
-    print("||| Метод Хорд |||")
     if check_diff(float(x1)):
         print(" ")
         print("y' * y'' > 0")
@@ -85,8 +84,6 @@ def chorde_method_b(x1, accuracy):
     return print(f"\nАпроксимований корінь: {res} \nПохибка обрахування: {entered_function(res)}")
 
 def tangents_method(x1, x2, accuracy):
-    print(" ")
-    print("||| Метод Дотичних |||")
     if check_diff(float(x1)):
         print(" ")
         print("y' * y'' > 0")
@@ -134,21 +131,21 @@ def iterations_method(x, accuracy):
     i = 1
     res = x
     prev_res = 0
-    while abs(res - prev_res) > accuracy and i<=20:
+    while abs(res - prev_res) > accuracy:
         print(f"{res} + {m} * f({res}) =")
         prev_res = res
         res = res + m * entered_function(res)
         print(res)
         i += 1
-
-    if i <= 20:
-        print(f"\nАпроксимований корінь: {res}\nПохибка обрахування: {res - prev_res}")
-
-    elif i > 20:
-        print(f"Не вдалося відшукати корінь з необхідною точністю за 20 ітерацій.\n"
-        f"Коренем рівняння буде x = {res}\n"
-        f"Абсолютна похибка: {entered_function(res)}")
-        return res
+    print(f"\nАпроксимований корінь: {res}\nПохибка обрахування: {entered_function(res)}")
+    # if i <= 20:
+    #     print(f"\nАпроксимований корінь: {res}\nПохибка обрахування: {res - prev_res}")
+    #
+    # elif i > 20:
+    #     print(f"Не вдалося відшукати корінь з необхідною точністю за 20 ітерацій.\n"
+    #     f"Коренем рівняння буде x = {res}\n"
+    #     f"Абсолютна похибка: {entered_function(res)}")
+    #     return res
 
 if __name__ == "__main__":
     print("Комп'ютерний практикум №1 \nВаріант №11 \nстудент групи ПБ-21 \nРозумняк Руслан")
@@ -156,8 +153,8 @@ if __name__ == "__main__":
     print("-------------------------")
     print("||| Метод Сканування |||")
     print(" ")
-    print_range(-5, 6)
     x1, x2 = scanning(-5, 6, 1)
+    print_range(-5, 6)
     print("")
     print(f"Частковий інтервал: {x1, x2}")
     print_subrange(x1, x2, 0.1)
@@ -165,8 +162,12 @@ if __name__ == "__main__":
     print(" ")
     print(f"Наближений інтервал: {float(format_value(sub_x1)), float(format_value(sub_x2))}")
     print("-------------------------")
+    print(" ")
+    print("||| Метод Хорд |||")
     chorde_method(float(format_value(sub_x1)), float(format_value(sub_x2)), accuracy)
     print("-------------------------")
+    print(" ")
+    print("||| Метод Дотичних |||")
     tangents_method(sub_x1, sub_x2, accuracy)
     print("-------------------------")
     iterations_method(1, accuracy)
